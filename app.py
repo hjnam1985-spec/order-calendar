@@ -6,7 +6,7 @@ import holidays
 import pandas as pd
 import streamlit as st
 
-SHEET_ID = "여기에_구글시트_ID_붙여넣기"
+SHEET_ID = "1-4Z_h-mzrsZ-8e8lWsEn4EfofxZyF5PFcV2Rl9wiL9I"
 SHEET_MAIN = "앱데이터"
 SHEET_MEMO = "수기일정"   # 없으면 자동으로 무시됩니다
 
