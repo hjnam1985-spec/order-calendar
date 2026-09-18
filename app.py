@@ -85,14 +85,18 @@ def load_data():
 
 @st.cache_data(ttl=300)
 def load_memo():
+    cols = ["날짜", "시간", "내용"]
+    empty = pd.DataFrame(columns=cols + ["일자"])
     try:
         m = pd.read_csv(csv_url(SHEET_MEMO), dtype=str).fillna("")
-        m["날짜"] = pd.to_datetime(m["날짜"], errors="coerce")
-        m = m.dropna(subset=["날짜"]).copy()
-        m["일자"] = m["날짜"].dt.date
-        return m
     except Exception:
-        return pd.DataFrame(columns=["날짜", "시간", "내용", "일자"])
+        return empty
+    if not set(cols).issubset(m.columns) or "원본" in m.columns:
+        return empty
+    m["날짜"] = pd.to_datetime(m["날짜"], errors="coerce")
+    m = m.dropna(subset=["날짜"]).copy()
+    m["일자"] = m["날짜"].dt.date
+    return m[cols + ["일자"]]
 
 
 try:
